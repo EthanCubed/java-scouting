@@ -51,7 +51,7 @@ public class Screen extends JFrame implements ActionListener{
 		this.setLayout(null);
 		
 		teamNumL = new JLabel("Team Number:");
-		teamNumT = new JTextField();
+		teamNumT = new JTextField("0");
 		
 		initObj(teamNumL, 165, 25, 125, 25);
 		initObj(teamNumT, 255, 25, 70, 25);
@@ -62,26 +62,26 @@ public class Screen extends JFrame implements ActionListener{
 		
 		
 		aHighAttemptsL = new JLabel("Attempts High: ");
-		aHighAttemptsT = new JTextField();
+		aHighAttemptsT = new JTextField("0");
 		
 		initObj(aHighAttemptsL, 10, 100, 100, 25);
 		initObj(aHighAttemptsT, 110, 100, 100, 25);
 		
 		aHighMadeL = new JLabel("Made High: ");
-		aHighMadeT = new JTextField();
+		aHighMadeT = new JTextField("0");
 		
 		initObj(aHighMadeL, 10, 135, 100, 25);
 		initObj(aHighMadeT, 110, 135, 100, 25);
 		
 		
 		aLowAttemptsL = new JLabel("Attempts Low: ");
-		aLowAttemptsT = new JTextField();
+		aLowAttemptsT = new JTextField("0");
 		
 		initObj(aLowAttemptsL, 10, 185, 100, 25);
 		initObj(aLowAttemptsT, 110, 185, 100, 25);
 		
 		aLowMadeL = new JLabel("Made Low: ");
-		aLowMadeT = new JTextField();
+		aLowMadeT = new JTextField("0");
 		
 		initObj(aLowMadeL, 10, 220, 100, 25);
 		initObj(aLowMadeT, 110, 220, 100, 25);
