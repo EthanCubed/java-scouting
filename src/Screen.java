@@ -272,6 +272,7 @@ public class Screen extends JFrame implements ActionListener{
 	private void initOther() { //rename later plz
 		
 	}
+	
 	private void initObj(JComponent obj, int x, int y, int width, int height) {
 		
 		obj.setVisible(true);
