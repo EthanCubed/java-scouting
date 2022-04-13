@@ -3,8 +3,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		new Screen();
-		
+		Screen screen1 = new Screen();
 		
 	}
 
