@@ -1,9 +1,12 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
 public class Screen extends JFrame implements ActionListener{
+	
+	ArrayList<Team> teams;
 	
 	JLabel teamNumL;
 	JTextField teamNumT;
@@ -61,6 +64,11 @@ public class Screen extends JFrame implements ActionListener{
 	JLabel totalTelePointsL;
 	JLabel totalAllPointsL;
 	
+	JButton calcAllB;
+	JButton clearDataB;
+	JButton formatDataB;
+	JLabel dataDisplayL;
+	
 	private int autoPoints = 0;
 	private int telePoints = 0;
 	private int climbPoints = 0;
@@ -68,8 +76,9 @@ public class Screen extends JFrame implements ActionListener{
 	private int totalOverallPoints = 0;
 	private int teamNum = 0;
 	
-	public Screen() {
+	public Screen(ArrayList<Team> teams) {
 		
+		this.teams = teams;
 		this.setSize(800, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
@@ -87,6 +96,8 @@ public class Screen extends JFrame implements ActionListener{
 		
 		initTeleop();
 		
+		initFunctions();
+		
 		this.repaint();
 	}
 
@@ -94,40 +105,20 @@ public class Screen extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
+		teamNum = Integer.valueOf(teamNumT.getText());
+		
 		if(e.getSource().equals(autoCalcB)) {
 			
-			autoPoints = calcAutoPoints();
-			
-			autoPointsL.setText("Auto Points: " + autoPoints);
-			
-			
-			totalTelePoints = telePoints + climbPoints;
-			
-			totalOverallPoints = totalTelePoints + autoPoints;
-			
-			totalTelePointsL.setText("Total Teleop Points: " + totalTelePoints);
-			totalAllPointsL.setText("Total Overall Points: " + totalOverallPoints);
+			autoCalc();
 			
 		}else if(e.getSource().equals(teleCalcB)) {
 			
-			int[] points = calcTelePoints();
-			telePoints = points[0];
-			climbPoints = points[1];
+			teleCalc();
 			
-			telePointsL.setText("Teleop Points: " + telePoints);
-			if(climbPoints >= 0) {
-				climbPointsL.setText("Climb Points: " + climbPoints);
-			}else {
-				climbPointsL.setText("Input Error");
-				climbPoints = 0;
-			}
+		}else if(e.getSource().equals(formatDataB)){
 			
-			totalTelePoints = telePoints + climbPoints;
+			formatData();
 			
-			totalOverallPoints = totalTelePoints + autoPoints;
-			
-			totalTelePointsL.setText("Total Teleop Points: " + totalTelePoints);
-			totalAllPointsL.setText("Total Overall Points: " + totalOverallPoints);
 		}
 		
 	}
@@ -186,26 +177,26 @@ public class Screen extends JFrame implements ActionListener{
 		initObj(teleL, 330, 65, 100, 25);
 		
 		
-		tHighAttemptsL = new JLabel("High Attempts: ");
+		tHighAttemptsL = new JLabel("Attempts High: ");
 		tHighAttemptsT = new JTextField("0");
 		
 		initObj(tHighAttemptsL, 270, 100, 100, 25);
 		initObj(tHighAttemptsT, 370, 100, 100, 25);
 		
-		tHighMadeL = new JLabel("High Attempts: ");
+		tHighMadeL = new JLabel("Made High: ");
 		tHighMadeT = new JTextField("0");
 		
 		initObj(tHighMadeL, 270, 135, 100, 25);
 		initObj(tHighMadeT, 370, 135, 100, 25);
 		
 		
-		tLowAttemptsL = new JLabel("Low Attempts: ");
+		tLowAttemptsL = new JLabel("Attempts Low: ");
 		tLowAttemptsT = new JTextField("0");
 		
 		initObj(tLowAttemptsL, 270, 185, 100, 25);
 		initObj(tLowAttemptsT, 370, 185, 100, 25);
 		
-		tLowMadeL = new JLabel("Low Attempts: ");
+		tLowMadeL = new JLabel("Made Low: ");
 		tLowMadeT = new JTextField("0");
 		
 		initObj(tLowMadeL, 270, 220, 100, 25);
@@ -269,7 +260,19 @@ public class Screen extends JFrame implements ActionListener{
 		
 	}
 	
-	private void initOther() { //rename later plz
+	private void initFunctions() { 
+		
+		calcAllB = new JButton("Calculate All");
+		clearDataB = new JButton("Clear Data");
+		formatDataB = new JButton("Format Data");
+		
+		dataDisplayL = new JLabel("Data: ");
+		
+		initObj(calcAllB, 500, 275, 150, 25);
+		initObj(clearDataB, 500, 325, 150, 25);
+		initObj(formatDataB, 500, 375, 150, 25);
+		
+		initObj(dataDisplayL, 500, 425, 150, 25);
 		
 	}
 	
@@ -352,6 +355,98 @@ public class Screen extends JFrame implements ActionListener{
 			}
 			
 		}
+		
 		return false;
+	}
+	
+	public int[] getVals() {
+		
+		int[] vals = new int[11];
+		
+		vals[0] = Integer.valueOf(teamNumL.getText());
+		vals[1] = taxiC.isSelected() ? 1 : 0;
+		
+		vals[2] = Integer.valueOf(aLowAttemptsT.getText());
+		vals[3] = Integer.valueOf(aLowMadeT.getText());
+		
+		vals[4] = Integer.valueOf(aHighAttemptsT.getText());
+		vals[5] = Integer.valueOf(aHighMadeT.getText());
+		
+		vals[6] = Integer.valueOf(tLowAttemptsT.getText());
+		vals[7] = Integer.valueOf(tLowMadeT.getText());
+		
+		vals[8] = Integer.valueOf(tHighAttemptsT.getText());
+		vals[9] = Integer.valueOf(tHighMadeT.getText());
+		
+		vals[10] = climbPoints;
+		
+		return vals;
+		
+	}
+	
+	public void displayData(Team team) {
+		
+		String string = "Data: ";
+		String data = team.toString();
+		
+		dataDisplayL.setText(string + data);
+		
+	}
+	
+	private void autoCalc() {
+		
+		autoPoints = calcAutoPoints();
+		
+		autoPointsL.setText("Auto Points: " + autoPoints);
+		
+		
+		totalTelePoints = telePoints + climbPoints;
+		
+		totalOverallPoints = totalTelePoints + autoPoints;
+		
+		totalTelePointsL.setText("Total Teleop Points: " + totalTelePoints);
+		totalAllPointsL.setText("Total Overall Points: " + totalOverallPoints);
+		
+	}
+	
+	private void teleCalc() {
+		
+		int[] points = calcTelePoints();
+		telePoints = points[0];
+		climbPoints = points[1];
+		
+		telePointsL.setText("Teleop Points: " + telePoints);
+		if(climbPoints >= 0) {
+			climbPointsL.setText("Climb Points: " + climbPoints);
+		}else {
+			climbPointsL.setText("Input Error");
+			climbPoints = 0;
+		}
+		
+		totalTelePoints = telePoints + climbPoints;
+		
+		totalOverallPoints = totalTelePoints + autoPoints;
+		
+		totalTelePointsL.setText("Total Teleop Points: " + totalTelePoints);
+		totalAllPointsL.setText("Total Overall Points: " + totalOverallPoints);
+		
+	}
+	
+	private void formatData() {
+		
+		for(int i = 0; i < teams.size(); i++) {
+			if(teams.get(i).getNumber() == teamNum) {
+				
+				displayData(teams.get(i));
+				
+				return;
+				
+			}
+		}
+		
+	}
+	
+	private void clearData() {
+		
 	}
 }
