@@ -10,6 +10,14 @@ public class Team {
 	private int autoLowAttempts;
 	private int autoLowSuccesses;
 	
+	private int teleHighAttempts;
+	private int teleHighSuccesses;
+	
+	private int teleLowAttempts;
+	private int teleLowSuccesses;
+	
+	private int climbScores;
+	
 	public Team() {
 		
 	}
@@ -22,6 +30,24 @@ public class Team {
 	
 	public int getNumber() {
 		return teamNum;
+	}
+	
+	public int getTeleSuccesses(String goal) {
+		
+		if(goal.equals("h")) {
+			return teleHighSuccesses;
+		}else if(goal.equals("l")) {
+			return teleLowSuccesses;
+		}
+		
+		return 0;
+ 
+	}
+	
+	public Team findTeam(int number) {
+		Team team = new Team();
+		
+		return team;
 	}
 	
 	public String toString() {

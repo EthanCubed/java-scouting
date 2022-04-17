@@ -4,12 +4,15 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class Screen extends JFrame implements ActionListener{
+public class InputScreen extends JFrame implements ActionListener{
 	
 	ArrayList<Team> teams;
 	
 	JLabel teamNumL;
 	JTextField teamNumT;
+	
+	JLabel matchNumL;
+	JTextField matchNumT;
 	
 	JLabel autoL;
 	
@@ -76,7 +79,7 @@ public class Screen extends JFrame implements ActionListener{
 	private int totalOverallPoints = 0;
 	private int teamNum = 0;
 	
-	public Screen(ArrayList<Team> teams) {
+	public InputScreen(ArrayList<Team> teams) {
 		
 		this.teams = teams;
 		this.setSize(800, 500);
@@ -84,19 +87,11 @@ public class Screen extends JFrame implements ActionListener{
 		this.setVisible(true);
 		this.setLayout(null);
 		
-		
-		//////////Team Number///////////////////////
-		teamNumL = new JLabel("Team Number:");
-		teamNumT = new JTextField("0");
-		
-		initObj(teamNumL, 165, 25, 125, 25);
-		initObj(teamNumT, 255, 25, 70, 25);
+		initFunctions();
 		
 		initAutonomous();
 		
 		initTeleop();
-		
-		initFunctions();
 		
 		this.repaint();
 	}
@@ -123,6 +118,34 @@ public class Screen extends JFrame implements ActionListener{
 		
 	}
 	
+	private void initFunctions() { 
+		
+		teamNumL = new JLabel("Team Number:");
+		teamNumT = new JTextField("0");
+		
+		initObj(teamNumL, 270, 25, 125, 25);
+		initObj(teamNumT, 360, 25, 70, 25);
+		
+		matchNumL = new JLabel("Match Number: ");
+		matchNumT = new JTextField("0");
+		
+		initObj(matchNumL, 10, 25, 125, 25);
+		initObj(matchNumT, 110, 25, 70, 25);
+		
+		calcAllB = new JButton("Calculate All");
+		clearDataB = new JButton("Clear Data");
+		formatDataB = new JButton("Format Data");
+		
+		dataDisplayL = new JLabel("Data: ");
+		
+		initObj(calcAllB, 500, 275, 150, 25);
+		initObj(clearDataB, 500, 325, 150, 25);
+		initObj(formatDataB, 500, 375, 150, 25);
+		
+		initObj(dataDisplayL, 500, 425, 150, 25);
+		
+	}
+
 	private void initAutonomous(){
 		autoL = new JLabel("Auto Period");
 		
@@ -260,21 +283,7 @@ public class Screen extends JFrame implements ActionListener{
 		
 	}
 	
-	private void initFunctions() { 
-		
-		calcAllB = new JButton("Calculate All");
-		clearDataB = new JButton("Clear Data");
-		formatDataB = new JButton("Format Data");
-		
-		dataDisplayL = new JLabel("Data: ");
-		
-		initObj(calcAllB, 500, 275, 150, 25);
-		initObj(clearDataB, 500, 325, 150, 25);
-		initObj(formatDataB, 500, 375, 150, 25);
-		
-		initObj(dataDisplayL, 500, 425, 150, 25);
-		
-	}
+	
 	
 	private void initObj(JComponent obj, int x, int y, int width, int height) {
 		
@@ -324,8 +333,6 @@ public class Screen extends JFrame implements ActionListener{
 		
 		if(!wrongInput) {
 			
-			System.out.println("Congrats");
-			
 			if(LC) {
 				points[1] = 4;
 			}else if(MC) {
@@ -341,7 +348,9 @@ public class Screen extends JFrame implements ActionListener{
 			points[1] = -1;
 			
 		}
+		
 		return points;
+		
 	}
 	
 	private boolean checkWrongInput(boolean[] vals) {

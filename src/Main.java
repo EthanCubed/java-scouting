@@ -2,10 +2,15 @@ import java.util.ArrayList;
 
 public class Main {
 
+	public static ArrayList<Team> teams = new ArrayList<Team>();
+	
+	public static InputScreen inputScreen;
+	
+	public static DataScreen dataScreen;
+	
 	public static void main(String[] args) {
-		ArrayList<Team> teams = new ArrayList<Team>();
 		
-		Screen screen = new Screen(teams);
+		inputScreen = new InputScreen(teams);
 		
 		
 	}
