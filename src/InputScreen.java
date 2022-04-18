@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+
 public class InputScreen extends JFrame implements ActionListener{
 	
 	ArrayList<Team> teams;
@@ -71,6 +72,7 @@ public class InputScreen extends JFrame implements ActionListener{
 	JButton clearDataB;
 	JButton formatDataB;
 	JLabel dataDisplayL;
+	JLabel dataL;
 	
 	private int autoPoints = 0;
 	private int telePoints = 0;
@@ -78,6 +80,8 @@ public class InputScreen extends JFrame implements ActionListener{
 	private int totalTelePoints = 0;
 	private int totalOverallPoints = 0;
 	private int teamNum = 0;
+	
+	private boolean formatted = false;
 	
 	public InputScreen(ArrayList<Team> teams) {
 		
@@ -94,6 +98,7 @@ public class InputScreen extends JFrame implements ActionListener{
 		initTeleop();
 		
 		this.repaint();
+		
 	}
 
 	@Override
@@ -113,6 +118,14 @@ public class InputScreen extends JFrame implements ActionListener{
 		}else if(e.getSource().equals(formatDataB)){
 			
 			formatData();
+			
+		}else if(e.getSource().equals(calcAllB)) {
+			
+			calcAll();
+			
+		}else if(e.getSource().equals(clearDataB)) {
+			
+			clearData();
 			
 		}
 		
@@ -136,13 +149,19 @@ public class InputScreen extends JFrame implements ActionListener{
 		clearDataB = new JButton("Clear Data");
 		formatDataB = new JButton("Format Data");
 		
-		dataDisplayL = new JLabel("Data: ");
+		dataDisplayL = new JLabel("Current Data: ");
+		dataL = new JLabel();
 		
-		initObj(calcAllB, 500, 275, 150, 25);
-		initObj(clearDataB, 500, 325, 150, 25);
-		initObj(formatDataB, 500, 375, 150, 25);
+		initObj(calcAllB, 500, 25, 150, 25);
+		initObj(clearDataB, 500, 75, 150, 25);
+		initObj(formatDataB, 500, 125, 150, 25);
 		
-		initObj(dataDisplayL, 500, 425, 150, 25);
+		calcAllB.addActionListener(this);
+		clearDataB.addActionListener(this);
+		formatDataB.addActionListener(this);
+		
+		initObj(dataDisplayL, 500, 150, 150, 25);
+		initObj(dataL, 500, 175, 300, 300);
 		
 	}
 
@@ -441,21 +460,69 @@ public class InputScreen extends JFrame implements ActionListener{
 		
 	}
 	
+	private void calcAll() {
+		
+		autoCalc();
+		teleCalc();
+		
+	}
 	private void formatData() {
 		
-		for(int i = 0; i < teams.size(); i++) {
-			if(teams.get(i).getNumber() == teamNum) {
-				
-				displayData(teams.get(i));
-				
-				return;
-				
+		if(!formatted) {
+			for(int i = 0; i < teams.size(); i++) {
+				if(teams.get(i).getNumber() == teamNum) {
+					
+					formatted = true;
+					
+					teams.get(i).addMatch(getVals());
+					
+					displayData(teams.get(i));
+					
+					return;
+					
+				}
 			}
+			
+			//if team no exist then create team
+			new Team(teamNum);
+			
+			formatData();
+			
+		}else {
+			
 		}
 		
 	}
 	
 	private void clearData() {
+		
+		teamNumT.setText("0");
+		matchNumT.setText("0");
+		
+		aHighAttemptsT.setText("0");
+		aHighMadeT.setText("0");
+		
+		aLowAttemptsT.setText("0");
+		aLowMadeT.setText("0");
+		
+		taxiC.setSelected(false);
+		
+		
+		tHighAttemptsT.setText("0");
+		tHighMadeT.setText("0");
+		
+		tLowAttemptsT.setText("0");
+		tLowMadeT.setText("0");
+		
+		noClimbC.setSelected(false);
+		lowClimbC.setSelected(false);
+		midClimbC.setSelected(false);
+		highClimbC.setSelected(false);
+		traversalClimbC.setSelected(false);
+		
+		dataL.setText(" ");
+		
+		calcAll();
 		
 	}
 }

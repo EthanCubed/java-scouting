@@ -18,7 +18,11 @@ public class Team {
 	
 	private int climbScores;
 	
-	public Team() {
+	public Team(int teamNum) {
+		
+		this.teamNum = teamNum;
+		
+		Main.teams.add(this);
 		
 	}
 	
@@ -45,12 +49,14 @@ public class Team {
 	}
 	
 	public Team findTeam(int number) {
-		Team team = new Team();
+		Team team = new Team(number);
 		
 		return team;
 	}
 	
 	public String toString() {
+		
+		return String.valueOf(teamNum);
 		
 		String string = teamNum + ": " + autoHighAttempts + " | " + autoHighSuccesses + " | " +
 						autoLowAttempts + " | " + autoLowSuccesses + " | ";
