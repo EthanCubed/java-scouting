@@ -391,7 +391,7 @@ public class InputScreen extends JFrame implements ActionListener{
 		
 		int[] vals = new int[11];
 		
-		vals[0] = Integer.valueOf(teamNumL.getText());
+		vals[0] = Integer.valueOf(teamNumT.getText());
 		vals[1] = taxiC.isSelected() ? 1 : 0;
 		
 		vals[2] = Integer.valueOf(aLowAttemptsT.getText());
@@ -414,10 +414,9 @@ public class InputScreen extends JFrame implements ActionListener{
 	
 	public void displayData(Team team) {
 		
-		String string = "Data: ";
 		String data = team.toString();
 		
-		dataDisplayL.setText(string + data);
+		dataL.setText(data);
 		
 	}
 	
@@ -470,6 +469,7 @@ public class InputScreen extends JFrame implements ActionListener{
 		
 		if(!formatted) {
 			for(int i = 0; i < teams.size(); i++) {
+				System.out.println(i);
 				if(teams.get(i).getNumber() == teamNum) {
 					
 					formatted = true;
@@ -481,6 +481,7 @@ public class InputScreen extends JFrame implements ActionListener{
 					return;
 					
 				}
+				
 			}
 			
 			//if team no exist then create team
@@ -489,7 +490,7 @@ public class InputScreen extends JFrame implements ActionListener{
 			formatData();
 			
 		}else {
-			
+			formatDataB.setText("Already Formatted");
 		}
 		
 	}
@@ -522,7 +523,16 @@ public class InputScreen extends JFrame implements ActionListener{
 		
 		dataL.setText(" ");
 		
+		formatted = false;
+		formatDataB.setText("Format Data");
+		
 		calcAll();
 		
+	}
+	
+	private void pushData() {
+		
+		
+		clearData();
 	}
 }

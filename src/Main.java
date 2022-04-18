@@ -13,6 +13,7 @@ public class Main {
 		
 		inputScreen = new InputScreen(teams);
 		
+		dataScreen = new DataScreen(teams);
 	}
 
 }
