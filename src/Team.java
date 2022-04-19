@@ -1,6 +1,8 @@
+import java.text.DecimalFormat;
 
 public class Team {
 
+	private static final DecimalFormat df = new DecimalFormat("0.000");
 	private int teamNum;
 	private int matchesPlayed;
 	
@@ -15,6 +17,8 @@ public class Team {
 	private int autoLowSuccesses;
 	private double autoLowAvg;
 	
+	private int autoPoints;
+	
 	private int teleHighAttempts;
 	private int teleHighSuccesses;
 	private double teleHighAcc;
@@ -25,6 +29,7 @@ public class Team {
 	private double teleLowAcc;
 	private double teleLowAvg;
 	
+	private int telePoints;
 	private int climbScore;
 	
 	public Team(int teamNum) {
@@ -55,11 +60,16 @@ public class Team {
 		
 		climbScore = scores[10];
 		
-		if(teleLowAttempts <= 0) {
-			teleLowAvg = 0;
-		}else {
-			teleLowAvg = (teleLowSuccesses / teleLowAttempts);
-		}
+		teleLowAvg = (teleLowAttempts > 0) ? (teleLowSuccesses * 100) / teleLowAttempts : 0;
+		teleHighAvg = (teleHighAttempts > 0) ? (teleHighSuccesses * 100) / teleHighAttempts : 0;
+		
+		autoLowAvg = (autoLowAttempts > 0) ? (autoLowSuccesses * 100) / autoLowAttempts : 0;
+		autoHighAvg = (autoHighAttempts > 0) ? (autoHighSuccesses * 100) / autoHighAttempts : 0;
+		
+		autoPoints = (taxi) ? 2 : 0;
+		autoPoints = (autoHighSuccesses * 4) + (autoLowSuccesses * 2);
+		
+		telePoints = (teleHighSuccesses * 2) + (teleLowSuccesses);
 		
 	}
 	
@@ -96,9 +106,29 @@ public class Team {
 		return team;
 	}
 	
-	public String toString() {
+	public String toData() {
 		
 		//return String.valueOf(teamNum);
+		//2d array time, kms
+	
+		String tab = "---";
+		String[][] array = {{"Number", ": ", String.valueOf(teamNum)},
+							{"Auto points", ": ", String.valueOf(autoPoints)},
+							{tab, "Low Attempts: ", String.valueOf(autoLowAttempts)},
+							{tab, "Low Made: ", String.valueOf(autoLowSuccesses)},
+							{tab, "Auto Low Goal Average: ", String.valueOf(autoLowAvg), "%"},
+							{tab, "High Attempts: ", String.valueOf(autoHighAttempts)},
+							{tab, "High Made: ", String.valueOf(autoHighSuccesses)},
+							{tab, "Auto High Goal Average: ", String.valueOf(autoHighAvg), "%"},
+							{tab, "Taxi: ", String.valueOf(taxi)},
+							{"Teleop Points: ", String.valueOf(telePoints)},
+							{tab, "Low Attempts: ", String.valueOf(teleLowAttempts)},
+							{tab, "Low Made: ", String.valueOf(teleLowSuccesses)},
+							{tab, "Teleop Low Average: ", String.valueOf(teleLowAvg), "%"},
+							{tab, "High Attempts: ", String.valueOf(teleHighAttempts)},
+							{tab, "High Made: ", String.valueOf(teleHighSuccesses)},
+							{tab, "Teleop High Average: ", String.valueOf(teleHighAvg), "%"}
+		};
 		
 		String line1Labels = "Num  | aLowAttempts | aLowMade";
 		String line1String = teamNum + " | " + autoLowAttempts + " | " + autoLowSuccesses;
@@ -115,8 +145,17 @@ public class Team {
 						+ line3Labels + "<BR>" + line3String + "<BR><BR>"
 						+ "</html>";
 		
-		return string;
+		String newString = "<html>";
+		for(int i = 0; i < array.length; i++) {
+			for(int k = 0; k < array[i].length; k++) {
+				newString += array[i][k];
+			}
+			newString += "<BR>";
+		}
 		
+		newString += "</html>";
+		
+		return newString;
 		
 	}
 	
