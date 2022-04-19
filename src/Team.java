@@ -1,8 +1,7 @@
 import java.text.DecimalFormat;
 
 public class Team {
-
-	private static final DecimalFormat df = new DecimalFormat("0.000");
+	
 	private int teamNum;
 	private int matchesPlayed;
 	
@@ -13,21 +12,37 @@ public class Team {
 	private int autoHighSuccesses;
 	private double autoHighAvg;
 	
+	private int allAutoHighAttempts;
+	private int allAutoHighMade;
+	private double allAutoHighAvg;
+	
 	private int autoLowAttempts;
 	private int autoLowSuccesses;
 	private double autoLowAvg;
 	
+	private int allAutoLowAttempts;
+	private int allAutoLowMade;
+	private double allAutoLowAvg;
+	
 	private int autoPoints;
+	private int allAutoPoints;
+	private double allAutoPointsAvg;
 	
 	private int teleHighAttempts;
 	private int teleHighSuccesses;
-	private double teleHighAcc;
 	private double teleHighAvg;
+	
+	private int allTeleHighAttempts;
+	private int allTeleHighMad;
+	private double allTeleHighAvg;
 	
 	private int teleLowAttempts;
 	private int teleLowSuccesses;
-	private double teleLowAcc;
 	private double teleLowAvg;
+	
+	private int allTeleLowAttempts;
+	private int allTeleLowMade;
+	private double allTeleLowAvg;
 	
 	private int telePoints;
 	private int climbScore;
@@ -110,7 +125,18 @@ public class Team {
 		
 		//return String.valueOf(teamNum);
 		//2d array time, kms
-	
+		String climbLevel = "No Climb";
+		
+		if(climbScore == 4) {
+			climbLevel = "Low Climb";
+		}else if(climbScore == 6) {
+			climbLevel = "Mid Climb";
+		}else if(climbScore == 10) {
+			climbLevel = "High Climb";
+		}else if(climbScore == 15) {
+			climbLevel = "Traversal Climb";
+		}
+		
 		String tab = "---";
 		String[][] array = {{"Number", ": ", String.valueOf(teamNum)},
 							{"Auto points", ": ", String.valueOf(autoPoints)},
@@ -127,7 +153,8 @@ public class Team {
 							{tab, "Teleop Low Average: ", String.valueOf(teleLowAvg), "%"},
 							{tab, "High Attempts: ", String.valueOf(teleHighAttempts)},
 							{tab, "High Made: ", String.valueOf(teleHighSuccesses)},
-							{tab, "Teleop High Average: ", String.valueOf(teleHighAvg), "%"}
+							{tab, "Teleop High Average: ", String.valueOf(teleHighAvg), "%"},
+							{tab, "Climb: ", climbLevel}
 		};
 		
 		String line1Labels = "Num  | aLowAttempts | aLowMade";

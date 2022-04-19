@@ -161,7 +161,7 @@ public class InputScreen extends JFrame implements ActionListener{
 		formatDataB.addActionListener(this);
 		
 		initObj(dataDisplayL, 500, 150, 150, 25);
-		initObj(dataL, 500, 150, 300, 300);
+		initObj(dataL, 500, 165, 300, 300);
 		
 	}
 
