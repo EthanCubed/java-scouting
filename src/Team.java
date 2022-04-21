@@ -44,8 +44,12 @@ public class Team {
 	private int allTeleLowMade;
 	private double allTeleLowAvg;
 	
-	private int telePoints;
 	private int climbScore;
+	private int climbAvg;
+	private String climbAvgString;
+	private String bestClimb;
+	
+	private int telePoints;
 	
 	public Team(int teamNum) {
 		
@@ -86,6 +90,11 @@ public class Team {
 		
 		telePoints = (teleHighSuccesses * 2) + (teleLowSuccesses);
 		
+		
+	}
+	
+	private void addToTotals() {
+		
 	}
 	
 	public int getNumber() {
@@ -115,7 +124,7 @@ public class Team {
 		return 0;
 	}
 	
-	public Team findTeam(int number) {
+	public static Team findTeam(int number) {
 		Team team = new Team(number);
 		
 		return team;
@@ -190,5 +199,11 @@ public class Team {
 		//Creates team object from text, use this when initializing
 		//to create the array list
 		
+	}
+	
+	public String toDataTab() {
+		
+		String string = teamNum + ": " + autoHighAvg + "% | " + autoLowAvg + "% | " + teleHighAvg + "% | " + teleLowAvg + "% | " + bestClimb + " | " + climbAvg;
+		return string;
 	}
 }

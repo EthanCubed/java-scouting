@@ -7,8 +7,6 @@ import javax.swing.*;
 
 public class InputScreen extends JFrame implements ActionListener{
 	
-	ArrayList<Team> teams;
-	
 	JLabel teamNumL;
 	JTextField teamNumT;
 	
@@ -71,6 +69,8 @@ public class InputScreen extends JFrame implements ActionListener{
 	JButton calcAllB;
 	JButton clearDataB;
 	JButton formatDataB;
+	JButton pushDataB;
+	
 	JLabel dataDisplayL;
 	JLabel dataL;
 	
@@ -83,9 +83,9 @@ public class InputScreen extends JFrame implements ActionListener{
 	
 	private boolean formatted = false;
 	
-	public InputScreen(ArrayList<Team> teams) {
+	public InputScreen() {
 		
-		this.teams = teams;
+		this.setTitle("Input Tab");
 		this.setSize(800, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
@@ -127,6 +127,11 @@ public class InputScreen extends JFrame implements ActionListener{
 			
 			clearData();
 			
+		}else if(e.getSource().equals(pushDataB)) {
+			
+			Main.dataScreen.addTeam(Team.findTeam(teamNum));
+			//System.out.println("Team: " + Team.findTeam(teamNum));
+			
 		}
 		
 	}
@@ -162,6 +167,14 @@ public class InputScreen extends JFrame implements ActionListener{
 		
 		initObj(dataDisplayL, 500, 150, 150, 25);
 		initObj(dataL, 500, 165, 300, 300);
+		
+		pushDataB = new JButton("<html>Push<BR>Data</html>");
+		
+		pushDataB.addActionListener(this);
+		
+		initObj(pushDataB, 700, 25, 75, 100);
+		pushDataB.setVisible(false);
+		
 		
 	}
 
@@ -468,15 +481,15 @@ public class InputScreen extends JFrame implements ActionListener{
 	private void formatData() {
 		
 		if(!formatted) {
-			for(int i = 0; i < teams.size(); i++) {
+			for(int i = 0; i < Main.teams.size(); i++) {
 				System.out.println(i);
-				if(teams.get(i).getNumber() == teamNum) {
+				if(Main.teams.get(i).getNumber() == teamNum) {
 					
 					formatted = true;
 					
-					teams.get(i).addMatch(getVals());
+					Main.teams.get(i).addMatch(getVals());
 					
-					displayData(teams.get(i));
+					displayData(Main.teams.get(i));
 					
 					return;
 					
@@ -492,6 +505,8 @@ public class InputScreen extends JFrame implements ActionListener{
 		}else {
 			formatDataB.setText("Already Formatted");
 		}
+		
+		pushDataB.setVisible(true);
 		
 	}
 	
