@@ -129,6 +129,7 @@ public class InputScreen extends JFrame implements ActionListener{
 			
 		}else if(e.getSource().equals(pushDataB)) {
 			
+			System.out.println("ADDING TEAM");
 			Main.dataScreen.addTeam(Team.findTeam(teamNum));
 			//System.out.println("Team: " + Team.findTeam(teamNum));
 			
@@ -483,12 +484,14 @@ public class InputScreen extends JFrame implements ActionListener{
 		if(!formatted) {
 			for(int i = 0; i < Main.teams.size(); i++) {
 				System.out.println(i);
+				System.out.println("teamNumber: " + Main.teams.get(i).getNumber());
 				if(Main.teams.get(i).getNumber() == teamNum) {
 					
 					formatted = true;
 					
 					Main.teams.get(i).addMatch(getVals());
 					
+					System.out.println("ADDING MATCH");
 					displayData(Main.teams.get(i));
 					
 					return;

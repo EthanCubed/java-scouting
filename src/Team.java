@@ -90,6 +90,7 @@ public class Team {
 		
 		telePoints = (teleHighSuccesses * 2) + (teleLowSuccesses);
 		
+		addToTotals();
 		
 	}
 	
