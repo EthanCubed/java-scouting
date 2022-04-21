@@ -481,37 +481,31 @@ public class InputScreen extends JFrame implements ActionListener{
 	}
 	private void formatData() {
 		
-		if(!formatted) {
-			for(int i = 0; i < Main.teams.size(); i++) {
-				System.out.println(i);
-				System.out.println("teamNumber: " + Main.teams.get(i).getNumber());
-				if(Main.teams.get(i).getNumber() == teamNum) {
+		for(int i = 0; i < Main.teams.size(); i++) {
+			System.out.println(i);
+			System.out.println("teamNumber: " + Main.teams.get(i).getNumber());
+			if(Main.teams.get(i).getNumber() == teamNum) {
 					
-					formatted = true;
+				formatted = true;
 					
-					Main.teams.get(i).addMatch(getVals());
+				//Main.teams.get(i).addMatch(getVals());
 					
-					System.out.println("ADDING MATCH");
-					displayData(Main.teams.get(i));
+				System.out.println("ADDING MATCH");
+				displayData(Main.teams.get(i));
 					
-					return;
+				return;
 					
-				}
-				
 			}
+				
+		}
 			
 			//if team no exist then create team
 			new Team(teamNum);
 			
 			formatData();
 			
-		}else {
-			formatDataB.setText("Already Formatted");
-		}
-		
-		pushDataB.setVisible(true);
-		
 	}
+		
 	
 	private void clearData() {
 		
