@@ -129,8 +129,10 @@ public class InputScreen extends JFrame implements ActionListener{
 			
 		}else if(e.getSource().equals(pushDataB)) {
 			
+			System.out.println("sizew: " + Main.teams.size());	
 			System.out.println("ADDING TEAM");
 			Main.dataScreen.addTeam(Team.findTeam(teamNum));
+			System.out.println("sizes: " + Main.teams.size());
 			//System.out.println("Team: " + Team.findTeam(teamNum));
 			
 		}
@@ -481,8 +483,10 @@ public class InputScreen extends JFrame implements ActionListener{
 	}
 	private void formatData() {
 		
+		pushDataB.setVisible(true);
+		
 		for(int i = 0; i < Main.teams.size(); i++) {
-			System.out.println(i);
+			System.out.println("size: " + i);	
 			System.out.println("teamNumber: " + Main.teams.get(i).getNumber());
 			if(Main.teams.get(i).getNumber() == teamNum) {
 					
@@ -492,17 +496,17 @@ public class InputScreen extends JFrame implements ActionListener{
 					
 				System.out.println("ADDING MATCH");
 				displayData(Main.teams.get(i));
-					
+				System.out.println("size: " + i);	
 				return;
 					
 			}
 				
 		}
 			
-			//if team no exist then create team
-			new Team(teamNum);
+		//if team no exist then create team
+		new Team(teamNum);
 			
-			formatData();
+		formatData();
 			
 	}
 		
