@@ -52,10 +52,18 @@ public class Team {
 	private int telePoints;
 	
 	public Team(int teamNum) {
+		boolean exist = false;
 		
 		this.teamNum = teamNum;
 		
-		Main.teams.add(this);
+		for(int i = 0; i < Main.teams.size(); i++) {
+			if(Main.teams.get(i).getNumber() == teamNum) {
+				exist = true;
+			}
+		}
+		if(!exist) {
+			Main.teams.add(this);
+		}
 		
 	}
 	
