@@ -131,6 +131,7 @@ public class InputScreen extends JFrame implements ActionListener{
 			
 			System.out.println("sizew: " + Main.teams.size());	
 			System.out.println("ADDING TEAM");
+			Main.teams.add(Team.findTeam(teamNum));
 			Main.dataScreen.addTeam(Team.findTeam(teamNum));
 			System.out.println("sizes: " + Main.teams.size());
 			//System.out.println("Team: " + Team.findTeam(teamNum));

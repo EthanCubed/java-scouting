@@ -61,6 +61,7 @@ public class Team {
 				exist = true;
 			}
 		}
+		System.out.println("Exist: " + exist);
 		if(!exist) {
 			Main.teams.add(this);
 		}
@@ -131,18 +132,31 @@ public class Team {
 		}
 		
 		return 0;
+		
 	}
 	
 	public static Team findTeam(int number) {
+		
+		for(int i = 0; i < Main.teams.size(); i++) {
+			
+			if(Main.teams.get(i).getNumber() == number) {
+				
+				System.out.println("Team already exists!");
+				
+				return Main.teams.get(i);
+				
+			}
+			
+		}
+		
 		Team team = new Team(number);
+		Main.teams.add(team);
 		
 		return team;
 	}
 	
 	public String toData() {
 		
-		//return String.valueOf(teamNum);
-		//2d array time, kms
 		String climbLevel = "No Climb";
 		
 		if(climbScore == 4) {

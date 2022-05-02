@@ -11,6 +11,7 @@ public class DataScreen extends JFrame{
 	private JPanel panel;
 	
 	private JLabel label;
+	
 	public DataScreen() {
 		this.setTitle("Data Tab");
 
@@ -37,13 +38,15 @@ public class DataScreen extends JFrame{
 	
 	public void addTeam(Team team) {
 		
-		System.out.println("size: " + Main.teams.size());
+		System.out.println("teams size: " + Main.teams.size());
 		
 		for(int i = 0; i < Main.teams.size(); i++) {
 			
-			if(Main.teams.get(i).equals(team) && Main.teams.size() > 0) {
-				System.out.println(Main.teams.get(i).getNumber());
-				System.out.println(team.getNumber());
+			System.out.println("teams Data: " + Main.teams.get(i).toDataTab());
+			
+			if(Main.teams.size() > 0 && Main.teams.get(i).getNumber() == team.getNumber()) {
+				System.out.println("team teamNum: " + Main.teams.get(i).getNumber());
+				System.out.println("teamNum: " + team.getNumber());
 				return;
 			}
 			
@@ -55,13 +58,18 @@ public class DataScreen extends JFrame{
 		
 		System.out.println(team.toDataTab());
 		//label.setText(team.toDataTab());
+
 		addTeamArrayToFrame();
 		
 	}
 	
 	private void addTeamArrayToFrame() {
 		
+		System.out.println("Before remove: " + panel.getComponentCount());
 		panel.removeAll();
+
+		System.out.println("After remove: " + panel.getComponentCount());
+		panel.repaint();
 		
 		for(int i = 0; i < teamLabelArray.size(); i++) {
 			
@@ -70,6 +78,7 @@ public class DataScreen extends JFrame{
 			teamLabelArray.get(i).setLocation(5, 5 + ( i * 20 ));
 			
 			panel.add(teamLabelArray.get(i));
+			
 			
 			panel.repaint();
 			
