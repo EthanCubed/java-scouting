@@ -61,20 +61,18 @@ public class DataScreen extends JFrame{
 	
 	private void addTeamArrayToFrame() {
 		
+		panel.removeAll();
+		
 		for(int i = 0; i < teamLabelArray.size(); i++) {
-			System.out.println(i);
-
+			
 			teamLabelArray.get(i).setVisible(true);
-			System.out.println(teamLabelArray.get(i).getText());
-			JLabel label2 = new JLabel("label");
-			label2.setVisible(true);
-			label2.setName("Name");
-			label2.setLocation(100, 100);
-			System.out.println("conten: " + panel.getComponentCount());
-			panel.add(label2);
-			System.out.println("conten: " + panel.getComponentCount());
-			System.out.println("content: " + panel.getComponent(0).getName());
+			teamLabelArray.get(i).setSize(300, 10);
+			teamLabelArray.get(i).setLocation(5, 5 + ( i * 20 ));
+			
+			panel.add(teamLabelArray.get(i));
+			
 			panel.repaint();
+			
 		}
 		
 		this.repaint();

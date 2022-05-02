@@ -9,28 +9,11 @@ public class Main {
 	
 	public static DataScreen dataScreen;
 	
-	public static void main(String[] args) throws InterruptedException {
-		
-		InputScrn inputScrn = new InputScrn();
-		inputScrn.start();
-		Thread.sleep(1);
-		
-		DataScrn dataScrn = new DataScrn();
-		dataScrn.start();
-		
-	}
-
-}
-
-class InputScrn extends Thread{
+	public static void main(String[] args){
 	
-	public void run() {
-		Main.inputScreen = new InputScreen();
-	}
-}
-class DataScrn extends Thread{
-	
-	public void run() {
-		Main.dataScreen = new DataScreen();
+		inputScreen = new InputScreen();
+		
+		dataScreen = new DataScreen();
+		
 	}
 }
