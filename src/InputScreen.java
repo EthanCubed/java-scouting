@@ -130,10 +130,12 @@ public class InputScreen extends JFrame implements ActionListener{
 		}else if(e.getSource().equals(pushDataB)) {
 			
 			System.out.println("sizew: " + Main.teams.size());	
+			/*
 			System.out.println("ADDING TEAM");
 			Main.teams.add(Team.findTeam(teamNum));
 			Main.dataScreen.addTeam(Team.findTeam(teamNum));
 			System.out.println("sizes: " + Main.teams.size());
+			*/
 			//System.out.println("Team: " + Team.findTeam(teamNum));
 			
 		}
@@ -319,8 +321,6 @@ public class InputScreen extends JFrame implements ActionListener{
 		
 	}
 	
-	
-	
 	private void initObj(JComponent obj, int x, int y, int width, int height) {
 		
 		obj.setVisible(true);
@@ -429,10 +429,29 @@ public class InputScreen extends JFrame implements ActionListener{
 		
 	}
 	
-	public void displayData(Team team) {
+	public void displayData() {
 		
-		String data = team.toData();
+		int[] values = getVals();
 		
+		String tab = "---";
+		
+		String data = "<html>Team Number: " + values[0] + "<BR>" +
+						"Autonomous<BR>" + 
+						tab + "Low Attempts: " + values[2] + "<BR>" + 
+						tab + "Low Made: " + values[3] + "<BR>" +
+						tab + "Low Average: " + ( (values[2] > 0) ? (values[3] * 100/values[2]) : 0 ) + "%<BR>" +
+						tab + "High Attempts: " + values[4] + "<BR>" + 
+						tab + "High Made: " + values[5] + "<BR>" +
+						tab + "High Average: " + ( (values[4] > 0) ? (values[5] * 100/values[4]) : 0 ) + "%<BR>" +
+						tab + "Taxi: " + ((values[1] == 1) ? true : false ) + "<BR>" +
+						"Teleop<BR>" + 
+						tab + "Low Attempts: " + values[6] + "<BR>" + 
+						tab + "Low Made: " + values[7] + "<BR>" +
+						tab + "Low Average: " + ( (values[6] > 0) ? (values[7] * 100/values[6]) : 0 ) + "%<BR>" +
+						tab + "High Attempts: " + values[8] + "<BR>" + 
+						tab + "High Made: " + values[9] + "<BR>" +
+						tab + "High Average: " + ( (values[8] > 0) ? (values[9] * 100/values[8]) : 0 ) + "%<BR>" +
+						tab + "Climb Level: ";
 		dataL.setText(data);
 		
 	}
@@ -482,33 +501,15 @@ public class InputScreen extends JFrame implements ActionListener{
 		teleCalc();
 		
 	}
+	
 	private void formatData() {
 		
 		pushDataB.setVisible(true);
 		
-		for(int i = 0; i < Main.teams.size(); i++) {
-			System.out.println("size: " + i);	
-			System.out.println("teamNumber: " + Main.teams.get(i).getNumber());
-			if(Main.teams.get(i).getNumber() == teamNum) {
-					
-				formatted = true;
-					
-				//Main.teams.get(i).addMatch(getVals());
-					
-				System.out.println("ADDING MATCH");
-				displayData(Main.teams.get(i));
-				System.out.println("size: " + i);	
-				return;
-					
-			}
-				
-		}
-			
-		//if team no exist then create team
-		new Team(teamNum);
-			
-		formatData();
-			
+		formatted = true;
+		
+		displayData();
+		
 	}
 		
 	
