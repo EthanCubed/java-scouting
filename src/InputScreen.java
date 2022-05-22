@@ -433,6 +433,18 @@ public class InputScreen extends JFrame implements ActionListener{
 		
 		int[] values = getVals();
 		
+		String climbLevel = "No Climb";
+		
+		int climbPoints = values[10];
+		if(climbPoints == 4) {
+			climbLevel = "Low Climb";
+		}else if(climbPoints == 6) {
+			climbLevel = "Mid Climb";
+		}else if(climbPoints == 10) {
+			climbLevel = "High Climb";
+		}else if(climbPoints == 15) {
+			climbLevel = "Traversal Climb";
+		}
 		String tab = "---";
 		
 		String data = "<html>Team Number: " + values[0] + "<BR>" +
@@ -451,7 +463,8 @@ public class InputScreen extends JFrame implements ActionListener{
 						tab + "High Attempts: " + values[8] + "<BR>" + 
 						tab + "High Made: " + values[9] + "<BR>" +
 						tab + "High Average: " + ( (values[8] > 0) ? (values[9] * 100/values[8]) : 0 ) + "%<BR>" +
-						tab + "Climb Level: ";
+						tab + "Climb Level: " + climbLevel;
+		
 		dataL.setText(data);
 		
 	}

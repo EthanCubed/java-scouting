@@ -15,5 +15,7 @@ public class Main {
 		
 		dataScreen = new DataScreen();
 		
+		inputScreen.repaint();
+		dataScreen.repaint();
 	}
 }
